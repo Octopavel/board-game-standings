@@ -1,6 +1,6 @@
 // Firebase Configuration (Replace with your actual Firebase config)
 const firebaseConfig = {
-    databaseURL: "https://your-project-id.firebaseio.com/"
+    databaseURL: "https://board-game-score-data-default-rtdb.firebaseio.com/"
 };
 
 // Fetch initial score from Firebase
