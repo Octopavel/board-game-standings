@@ -3,52 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Board Game Scores</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Simple Score Tracker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Board Game Scores</h1>
-        <div class="player-list">
-            <h2>Players: KJ, Luis, Petar</h2>
-        </div>
-    </header>
-
-    <div class="tab-container">
-        <button class="tab-link active" onclick="openGame(event, 'wingspan')">Wingspan</button>
-        <button class="tab-link" onclick="openGame(event, 'dune')">Dune Imperium</button>
-        <button class="tab-link" onclick="openGame(event, 'arknova')">Ark Nova</button>
-        <!-- Add more game buttons here -->
+    <div class="container">
+        <h1>Score Tracker</h1>
+        <p>Score: <span id="score">Loading...</span></p>
+        <button id="submitScoreBtn">Submit Score</button>
     </div>
 
-    <!-- Game score sections -->
-    <div id="wingspan" class="tab-content active"></div>
-    <div id="dune" class="tab-content"></div>
-    <div id="arknova" class="tab-content"></div>
-    <!-- Add more game sections here -->
-
-    <!-- Score Submission Modal -->
-    <div id="scoreModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Submit New Score</h3>
-            <form id="scoreForm">
-                <div class="form-group">
-                    <label for="gameSelect">Game:</label>
-                    <select id="gameSelect" required>
-                        <option value="">Select Game</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Winner:</label>
-                    <div class="player-radio">
-                        <label><input type="radio" name="winner" value="KJ" required> KJ</label>
-                        <label><input type="radio" name="winner" value="Luis"> Luis</label>
-                        <label><input type="radio" name="winner" value="Petar"> Petar</label>
-                    </div>
-                </div>
-                <button type="submit">Submit Score</button>
-            </form>
+    <div id="scoreDialog" class="dialog">
+        <div class="dialog-content">
+            <h2>Enter Score</h2>
+            <input type="number" id="scoreInput" min="0">
+            <button id="submitBtn">Submit</button>
+            <button id="closeBtn">Close</button>
         </div>
     </div>
 
