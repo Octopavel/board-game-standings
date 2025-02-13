@@ -4,9 +4,9 @@ const firebaseConfig = {
 };
 
 // Fetch initial score from Firebase
-async function fetchScore() {
+async function fetchScore(tabName) {
     try {
-        const response = await fetch(firebaseConfig.databaseURL + "scores.json");
+        const response = await fetch(firebaseConfig.databaseURL + tabName + ".json");
 
         if(!response.ok){
             throw new Error('HTTP error! Status: ${response.status}');
@@ -14,8 +14,11 @@ async function fetchScore() {
 
         const data = await response.json();
 
-        // console.log("Fetched data: ", data);
-        document.getElementById("scoreValue").textContent = data.score || 0;
+        console.log("Tab name: ", tabName);
+        console.log("Fetched data: ", data);
+        document.getElementById("scoreKJ").textContent = data.KJ|| 0;
+        document.getElementById("scoreLuis").textContent = data.Luis|| 0;
+        document.getElementById("scorePetar").textContent = data.Petar|| 0;
     } catch (error) {
         console.error("Error fetching score:", error);
     }
@@ -66,7 +69,7 @@ let activeTab = "overall";
 function switchTab(tabName) {
     activeTab = tabName;
     // document.getElementById("scoreValue").textContent = "dummy score";
-    fetchScore();
+    fetchScore(tabName);
     
     // Update active tab styling
     document.querySelectorAll(".tab-button").forEach(button => {
