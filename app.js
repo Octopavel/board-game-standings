@@ -7,8 +7,15 @@ const firebaseConfig = {
 async function fetchScore() {
     try {
         const response = await fetch(firebaseConfig.databaseURL + "scores.json");
+
+        if(!response.ok){
+            throw new Error('HTTP error! Status: ${response.status}');
+        }
+
         const data = await response.json();
-        document.getElementById("score").textContent = data.score || 0;
+
+        // console.log("Fetched data: ", data);
+        document.getElementById("scoreValue").textContent = data.score || 0;
     } catch (error) {
         console.error("Error fetching score:", error);
     }
@@ -22,7 +29,7 @@ async function submitScore(newScore) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ score: newScore })
         });
-        document.getElementById("score").textContent = newScore; // Update UI
+        document.getElementById("scoreValue").textContent = newScore; // Update UI
     } catch (error) {
         console.error("Error updating score:", error);
     }
@@ -51,5 +58,22 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     }
 });
 
-// Fetch initial score when page loads
-fetchScore();
+
+// Default active tab
+let activeTab = "overall";
+
+// Function to switch between tabs
+function switchTab(tabName) {
+    activeTab = tabName;
+    // document.getElementById("scoreValue").textContent = "dummy score";
+    fetchScore();
+    
+    // Update active tab styling
+    document.querySelectorAll(".tab-button").forEach(button => {
+        button.classList.remove("active");
+    });
+    document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add("active");
+}
+
+// Initialize with default tab
+switchTab("overall");

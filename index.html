@@ -3,14 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Score Tracker</title>
+    <title>Score Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h1>Score Tracker</h1>
-        <p>Score: <span id="score">Loading...</span></p>
-        <button id="submitScoreBtn">Submit Score</button>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('overall')">Overall</button>
+            <button class="tab-button" onclick="switchTab('ark-nova')">Ark Nova</button>
+            <button class="tab-button" onclick="switchTab('dune-imperium')">Dune Imperium</button>
+            <!-- <button class="tab-button" onclick="switchTab('scoreC')">Score C</button> -->
+        </div>
+
+        <!-- Score Display -->
+        <div id="scoreContainer">
+            <p>Score: <span id="scoreValue">Loading...</span></p>
+            <button id="submitScoreBtn">Submit New Score</button>
+        </div>
+
     </div>
 
     <div id="scoreDialog" class="dialog">
