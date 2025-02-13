@@ -96,7 +96,7 @@ function handleSubmit(e) {
 
     // In a real implementation, you would send this data to a server
     // For GitHub Pages, you would need to manually update the JSON file
-    alert('Score submitted! (Note: This demo doesn't persist data)');
+    alert('Score submitted! (Note: This demo doesnt persist data)');
     document.getElementById('scoreModal').style.display = 'none';
     e.target.reset();
 }
