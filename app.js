@@ -11,7 +11,6 @@ async function fetchScore(tabName) {
         if(!response.ok){
             throw new Error('HTTP error! Status: ${response.status}');
         }
-
         const data = await response.json();
 
         console.log("Tab name: ", tabName);
@@ -19,6 +18,7 @@ async function fetchScore(tabName) {
         document.getElementById("scoreKJ").textContent = data.KJ.wins|| 0;
         document.getElementById("scoreLuis").textContent = data.Luis.wins|| 0;
         document.getElementById("scorePetar").textContent = data.Petar.wins|| 0;
+
         document.getElementById("gamesPlayedKJ").textContent = data.KJ.gamesPlayed|| 0;
         document.getElementById("gamesPlayedLuis").textContent = data.Luis.gamesPlayed|| 0;
         document.getElementById("gamesPlayedPetar").textContent = data.Petar.gamesPlayed|| 0;
@@ -71,10 +71,15 @@ let activeTab = "overall";
 // Function to switch between tabs
 function switchTab(tabName) {
     activeTab = tabName;
-    // document.getElementById("scoreValue").textContent = "dummy score";
+    
     document.getElementById("scoreKJ").textContent = "Loading...";
     document.getElementById("scoreLuis").textContent = "Loading...";
     document.getElementById("scorePetar").textContent = "Loading...";
+
+    document.getElementById("gamesPlayedKJ").textContent = "...";
+    document.getElementById("gamesPlayedLuis").textContent = "...";
+    document.getElementById("gamesPlayedPetar").textContent = "...";
+
 
     fetchScore(tabName);
     
@@ -87,3 +92,8 @@ function switchTab(tabName) {
 
 // Initialize with default tab
 switchTab("overall");
+
+//TODO: add winrate calc
+//TODO: add score submission
+//TODO: calculate overall at sumbission
+//TODO: add history of submissions
