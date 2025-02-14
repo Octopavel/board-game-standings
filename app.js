@@ -5,8 +5,8 @@ const firebaseConfig = {
 
 // list of games to be kept track of, labels are the code references (json entries)
 // names are display names to be shown on the web page
-const gamesLabels = ["arkNova", "duneImperium","squash","overall"];
-const gamesNames = ["Ark Nova", "Dune Imperium", "Squash", "Overall"];
+const gamesLabels = ["arkNova", "duneImperium","squash"];
+const gamesNames = ["Ark Nova", "Dune Imperium", "Squash"];
 
 // Fetch initial score from Firebase
 async function fetchScore(tabName) {
@@ -95,8 +95,22 @@ function switchTab(tabName) {
     document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add("active");
 }
 
+function populateGameDropdown() {
+    const gameSelect = document.getElementById("gameSelect");
+    gameSelect.innerHTML = ""; // Clear existing options
+
+    gamesNames.forEach(game => {
+        let option = document.createElement("option");
+        option.value = game;
+        option.textContent = game;
+        gameSelect.appendChild(option);
+    });
+}
+
+
 // Initialize with default tab
 switchTab("overall");
+window.onload = populateGameDropdown;
 
 //TODO: add winrate calc
 //TODO: add score submission
