@@ -151,5 +151,5 @@ window.onload = populateGameDropdown;
 
 //TODO: add winrate calc
 //TODO: add score submission
-//TODO: calculate overall at sumbission
+//TODO: calculate overall at submission
 //TODO: add history of submissions
