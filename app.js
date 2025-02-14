@@ -15,10 +15,13 @@ async function fetchScore(tabName) {
         const data = await response.json();
 
         console.log("Tab name: ", tabName);
-        console.log("Fetched data: ", data);
-        document.getElementById("scoreKJ").textContent = data.KJ|| 0;
-        document.getElementById("scoreLuis").textContent = data.Luis|| 0;
-        document.getElementById("scorePetar").textContent = data.Petar|| 0;
+        console.log("Fetched data: ", data.KJ.wins);
+        document.getElementById("scoreKJ").textContent = data.KJ.wins|| 0;
+        document.getElementById("scoreLuis").textContent = data.Luis.wins|| 0;
+        document.getElementById("scorePetar").textContent = data.Petar.wins|| 0;
+        document.getElementById("gamesPlayedKJ").textContent = data.KJ.gamesPlayed|| 0;
+        document.getElementById("gamesPlayedLuis").textContent = data.Luis.gamesPlayed|| 0;
+        document.getElementById("gamesPlayedPetar").textContent = data.Petar.gamesPlayed|| 0;
     } catch (error) {
         console.error("Error fetching score:", error);
     }
@@ -69,6 +72,10 @@ let activeTab = "overall";
 function switchTab(tabName) {
     activeTab = tabName;
     // document.getElementById("scoreValue").textContent = "dummy score";
+    document.getElementById("scoreKJ").textContent = "Loading...";
+    document.getElementById("scoreLuis").textContent = "Loading...";
+    document.getElementById("scorePetar").textContent = "Loading...";
+
     fetchScore(tabName);
     
     // Update active tab styling

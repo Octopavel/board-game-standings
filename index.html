@@ -13,16 +13,26 @@
         <!-- Tabs -->
         <div class="tabs">
             <button class="tab-button active" onclick="switchTab('overall')">Overall</button>
-            <button class="tab-button" onclick="switchTab('ark-nova')">Ark Nova</button>
-            <button class="tab-button" onclick="switchTab('dune-imperium')">Dune Imperium</button>
+            <button class="tab-button" onclick="switchTab('arkNova')">Ark Nova</button>
+            <button class="tab-button" onclick="switchTab('duneImperium')">Dune Imperium</button>
+            <button class="tab-button" onclick="switchTab('squash')">Squash</button>
             <!-- <button class="tab-button" onclick="switchTab('scoreC')">Score C</button> -->
         </div>
 
         <!-- Score Display -->
         <div id="scoreContainer">
-            <p>KJ: <span id="scoreKJ">Loading...</span></p>
-            <p>Luis: <span id="scoreLuis">Loading...</span></p>
-            <p>Petar: <span id="scorePetar">Loading...</span></p>
+            <p>
+                KJ: <span id="scoreKJ">Loading...</span> 
+                (<span id="gamesPlayedKJ">...</span>)
+            </p>
+            <p>
+                Luis: <span id="scoreLuis">Loading...</span>
+                (<span id="gamesPlayedLuis">...</span>)
+            </p>
+            <p>
+                Petar: <span id="scorePetar">Loading...</span>
+                (<span id="gamesPlayedPetar">...</span>)
+            </p>
             <button id="submitScoreBtn">Submit New Score</button>
         </div>
 
