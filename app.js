@@ -5,8 +5,11 @@ const firebaseConfig = {
 
 // list of games to be kept track of, labels are the code references (json entries)
 // names are display names to be shown on the web page
-const gamesLabels = ["arkNova", "duneImperium","squash"];
-const gamesNames = ["Ark Nova", "Dune Imperium", "Squash"];
+const gameDict = {
+    "Ark Nova" : "arkNova",
+    "Dune Imperium" : "duneImperium",
+    "Squash" : "squash"
+}
 
 // Fetch initial score from Firebase
 async function fetchScore(tabName) {
@@ -18,8 +21,8 @@ async function fetchScore(tabName) {
         }
         const data = await response.json();
 
-        console.log("Tab name: ", tabName);
-        console.log("Fetched data: ", data.KJ.wins);
+        // console.log("Tab name: ", tabName);
+        // console.log("Fetched data: ", data.KJ.wins);
         document.getElementById("scoreKJ").textContent = data.KJ.wins|| 0;
         document.getElementById("scoreLuis").textContent = data.Luis.wins|| 0;
         document.getElementById("scorePetar").textContent = data.Petar.wins|| 0;
@@ -61,13 +64,47 @@ document.getElementById("closeBtn").addEventListener("click", () => {
 });
 
 // Handle submit
-document.getElementById("submitBtn").addEventListener("click", () => {
-    const newScore = parseInt(scoreInput.value, 10);
-    if (!isNaN(newScore)) {
-        submitScore(newScore);
-        dialog.style.display = "none";
+document.getElementById("submitBtn").addEventListener("click", async function () {
+    const selectedGame = document.getElementById("gameSelect").value; // Get selected game
+    const sessionWinsKJ = parseInt(document.getElementById("sessionWinsKJ").value, 10);
+    const sessionWinsLuis = parseInt(document.getElementById("sessionWinsLuis").value, 10);
+    const sessionWinsPetar = parseInt(document.getElementById("sessionWinsPetar").value, 10);
+
+    // Ensure inputs are valid numbers
+    if (isNaN(sessionWinsKJ) || isNaN(sessionWinsLuis) || isNaN(sessionWinsPetar)) {
+        alert("Please enter valid numbers for all players.");
+        return;
     }
+
+    console.log(`Updating scores for ${selectedGame}: P1=${sessionWinsKJ}, P2=${sessionWinsLuis}, P3=${sessionWinsPetar}`);
+
+    // Prepare the data to be sent to Firebase
+    const sessionScores = {
+        KJ: sessionWinsKJ,
+        Luis: sessionWinsLuis,
+        Petar: sessionWinsPetar
+    };
+
+    try {
+        // Update the session scores for the selected game in Firebase
+        await fetch(`https://board-game-score-data-default-rtdb.firebaseio.com/${selectedGame}/sessionScores.json`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(sessionScores)
+        });
+
+        console.log("Session scores updated successfully!");
+
+        // Refresh the displayed scores (Optional)
+        fetchScore(selectedGame);
+    } catch (error) {
+        console.error("Error updating session scores:", error);
+    }
+
+    // Close the dialog
+    document.getElementById("scoreDialog").style.display = "none";
 });
+
 
 
 // Default active tab
@@ -99,10 +136,10 @@ function populateGameDropdown() {
     const gameSelect = document.getElementById("gameSelect");
     gameSelect.innerHTML = ""; // Clear existing options
 
-    gamesNames.forEach(game => {
+    Object.keys(gameDict).forEach(displayName => {
         let option = document.createElement("option");
-        option.value = game;
-        option.textContent = game;
+        option.value = gameDict[displayName];
+        option.textContent = displayName;
         gameSelect.appendChild(option);
     });
 }
