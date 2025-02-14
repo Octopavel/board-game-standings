@@ -3,6 +3,11 @@ const firebaseConfig = {
     databaseURL: "https://board-game-score-data-default-rtdb.firebaseio.com/"
 };
 
+// list of games to be kept track of, labels are the code references (json entries)
+// names are display names to be shown on the web page
+const gamesLabels = ["arkNova", "duneImperium","squash","overall"];
+const gamesNames = ["Ark Nova", "Dune Imperium", "Squash", "Overall"];
+
 // Fetch initial score from Firebase
 async function fetchScore(tabName) {
     try {
